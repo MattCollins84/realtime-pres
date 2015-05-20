@@ -1,0 +1,44 @@
+/**** TEXT ****/
+.text-left {
+  text-align: left!important;
+}
+
+.text-green { 
+  color: green!important;
+}
+
+.text-red { 
+  color: red!important;
+}
+
+/**** LISTS ****/
+.list-full-width {
+  width: 100%!important;
+}
+
+/***** MARGINS *****/
+.mt10 {
+  margin-top: 10px!important;
+}
+
+.mt40 {
+  margin-top: 40px!important;
+}
+
+.mt80 {
+  margin-top: 80px!important;
+}
+
+/**** INDIVIDUAL STUFF ****/
+.ws-connected {
+  text-align: center;
+  bottom: 0;
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  color: grey!important;
+}
+
+.section {
+  border: 1px solid black;
+}

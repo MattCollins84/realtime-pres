@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Real-time Web Apps</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://api.insto.co.uk:3000/lib/client.js"></script>
+    <script type="text/javascript">
+
+      // user data
+      var userData = {
+        userType: "controller"
+      }
+
+      var userQuery = {
+        userType: "controller"
+      }
+
+      //connect to insto
+      var insto = new InstoClient('1595dd1cb1e713d09b6b20ab83c210b2', userData, userQuery, {
+
+        onConnect: function(data) { 
+          //console.log('connect', data);
+        },
+        
+        onNotification: function(data) {
+                
+        },
+        
+        // make a sync request
+        onConnectedUsers: function(data) {
+          
+        }
+
+      });
+    </script>
+  </head>
+
+  <body>
+    
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header text-center">
+
+          <input type='button' class="btn btn-danger mt10" onclick="prev();" value="PREVIOUS" />
+          <input type='button' class="btn btn-info mt10" onclick="colour();" value="COLOUR" />
+          <input type='button' class="btn btn-default mt10" onclick="black();" value="RESET" />
+          <input type='button' class="btn btn-warning mt10" onclick="heardof();" value="HEARD OF" />
+          <input type='button' class="btn btn-success mt10" onclick="next();" value="NEXT" />
+        </div>
+
+      </div>
+    </nav>
+
+    <div class="container mt80">
+        
+      <div class="row">
+      
+        <div class="col-sm-12 section">
+          
+          <h3>Small History Lesson</h3>
+          <p></p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>What is realtime web</h3>
+          <p>Event driven is key</p>
+          <p>Facebook notifications, BBC live sport/news</p>
+          <p>When something happens over there, you can make something happen over here</p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>Who heard of Websockets</h3>
+          <p></p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>What are websockets</h3>
+          <p>Stateful - must know about all other connections to the app, and be able to access them</p>
+          <p>There is no pre-determined request/response pattern - left up to you</p>
+          <p>Ideal for sending small updates with very little overhead</p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>Compared to HTTP</h3>
+          <p>Stateless - each request/response is totally independent</p>
+          <p>Relatively large HTTP headers, expensive to send just a single character</p>
+          <p>The whole web runs on HTTP</p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>Infrastructure graphic</h3>
+          <p>Clients connect to websocket server via Internet</p>
+          <p>Other applications (and also these clients) send data to each other via the websockets server</p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3></h3>
+          <p></p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3></h3>
+          <p></p>
+
+        </div>
+
+      </div>
+
+    </div>
+    
+    <script src="/js/bootstrap.min.js"></script>
+    <script>
+
+      var next = function() {
+
+        insto.send({ userType: "projector"}, { action: "next" }, false);
+
+      }
+
+      var prev = function() {
+
+        insto.send({ userType: "projector"}, { action: "prev" }, false);
+
+      }
+
+      var heardof = function() {
+
+        insto.send({ userType: "audience"}, { action: "showheardof" }, false);
+
+      }
+
+      // Random Colour generator stolen from webnets
+      var randomColor = (function(){
+        var golden_ratio_conjugate = 0.618033988749895;
+        var h = Math.random();
+        var hslToRgb = function (h, s, l) {
+          var r, g, b;
+          if(s == 0) {
+            r = g = b = l; // achromatic
+          } else {    
+            function hue2rgb(p, q, t) {
+              if(t < 0) t += 1;
+              if(t > 1) t -= 1;
+              if(t < 1/6) return p + (q - p) * 6 * t;
+              if(t < 1/2) return q;
+              if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+              return p;
+            }
+            var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            var p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1/3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1/3);
+          }
+          return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
+        };
+        return function() {
+          h += golden_ratio_conjugate;
+          h %= 1;
+          return hslToRgb(h, 0.5, 0.60);
+        };
+      })();
+
+      var colour = function() {
+
+        insto.broadcast({ action: "colour", colour: randomColor() });
+
+      }
+
+      var black = function() {
+
+        insto.send({ userType: "projector"}, { action: "colour", colour: "#000000" }, false);
+        insto.send({ userType: "audience"}, { action: "colour", colour: "#FFFFFF" }, false);
+
+      }
+
+    </script>
+
+  </body>
+</html>

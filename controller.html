@@ -60,6 +60,7 @@
           <input type='button' class="btn btn-default mt10" onclick="black();" value="RESET" />
           <input type='button' class="btn btn-warning mt10" onclick="heardof();" value="HEARD OF" />
           <input type='button' class="btn btn-success mt10" onclick="next();" value="NEXT" />
+          <input type='button' class="btn btn-primary mt10" onclick="redirect();" value="INSTO" />
         </div>
 
       </div>
@@ -82,6 +83,7 @@
           <p>Event driven is key</p>
           <p>Facebook notifications, BBC live sport/news</p>
           <p>When something happens over there, you can make something happen over here</p>
+          <p>In the past this was achieved by polling (API, DB, etc...) and updating the front-end (AJAX)</p>
 
         </div>
 
@@ -115,19 +117,35 @@
           <h3>Infrastructure graphic</h3>
           <p>Clients connect to websocket server via Internet</p>
           <p>Other applications (and also these clients) send data to each other via the websockets server</p>
+          <p>Generally, this is a separate server to your traditional webserver - can't use Apache for this</p>
 
         </div>
 
         <div class="col-sm-12 mt10 section">
           
-          <h3></h3>
+          <h3>What does this actually mean?</h3>
           <p></p>
 
         </div>
 
         <div class="col-sm-12 mt10 section">
           
-          <h3></h3>
+          <h3>Some numbers</h3>
+          <p></p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>Alternatives</h3>
+          <p>HTTP Streaming - generally only for downstream data (twitter streaming API)</p>
+          <p>WebRTC - WebRTC is designed for high-performance, high quality communication of video, audio etc...</p>
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>Getting started</h3>
           <p></p>
 
         </div>
@@ -199,6 +217,12 @@
 
         insto.send({ userType: "projector"}, { action: "colour", colour: "#000000" }, false);
         insto.send({ userType: "audience"}, { action: "colour", colour: "#FFFFFF" }, false);
+
+      }
+
+      var redirect = function() {
+
+        insto.send({ userType: "audience"}, { action: "redirect" }, false);
 
       }
 

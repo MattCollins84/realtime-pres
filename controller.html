@@ -74,7 +74,8 @@
           
           <h3>Small History Lesson</h3>
           <p>This broadly represents the progression of web dev over the last 2 or 3 decades.</p>
-          <p>Arguably representative of the average web developers progression through their learning</p>
+          <p>Almost every website has some kind of database behind it nowadays</p>
+          <p>Driven by jQuery, AJAX and Web 2.0</p>
           <p>Has helped with the progression towards online systems, and SaaS, as you can easier replicate native apps</p>
 
         </div>
@@ -83,7 +84,7 @@
           
           <h3>What is realtime web</h3>
           <p>Event driven is key</p>
-          <p>Facebook notifications, BBC live sport/news</p>
+          <p>Facebook notifications, BBC live sport/news, Phone push notifications</p>
           <p>When something happens over there, you can make something happen over here</p>
           <p>In the past this was achieved by polling (API, DB, etc...) and updating the front-end (AJAX)</p>
 
@@ -99,9 +100,10 @@
         <div class="col-sm-12 mt10 section">
           
           <h3>What are websockets</h3>
-          <p>Stateful - must know about all other connections to the app, and be able to access them</p>
-          <p>There is no pre-determined request/response pattern - left up to you</p>
+          <p>Stateful - must know about all other connections to the app, and be able to access them. This causes added complication when trying to scale</p>
           <p>Ideal for sending small updates with very little overhead</p>
+          <p>There is no pre-determined request/response pattern - left up to you</p>
+          <p>Security concerns - CHANGE SCREEN COLOUR</p>
 
         </div>
 
@@ -116,10 +118,10 @@
 
         <div class="col-sm-12 mt10 section">
           
-          <h3>Infrastructure graphic</h3>
+          <!---<h3>Infrastructure graphic</h3>
           <p>Clients connect to websocket server via Internet</p>
           <p>Other applications (and also these clients) send data to each other via the websockets server</p>
-          <p>Generally, this is a separate server to your traditional webserver - can't use Apache for this</p>
+          <p>Generally, this is a separate server to your traditional webserver - can't use Apache for this</p>-->
 
         </div>
 
@@ -133,7 +135,9 @@
         <div class="col-sm-12 mt10 section">
           
           <h3>Some numbers</h3>
-          <p></p>
+          <p>If you have any decent number of concurrent users you are wasting resources quite heavily</p>
+          <p>Also, making these requests uses up resources at the client side too</p>
+          <p>At work we have a CRM with around 5 or 6 polling based features and maybe 100 users, changing to websockets gave a noticeable improvement both for the users and the ops team</p>
 
         </div>
 

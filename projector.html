@@ -104,7 +104,7 @@
 
     <div class="reveal" id='bg'>
       
-      <h2 class='ws-connected' id='ws-connected'>0</h2>
+      <h2 class='ws-connected hidden' id='ws-connected'>0</h2>
 
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
@@ -117,8 +117,8 @@
           <h2>A Small History Lesson</h2>
           <ul>
             <li>Simple, static, HTML only websites</li>
-            <li>Database driven websites (The rise of the CMS)</li>
-            <li>Dynamic and interactive UI (jQuery, AJAX and "Web 2.0")</li>
+            <li>Database driven websites (CMS)</li>
+            <li>Focus on dynamic, interactive and engaging UI</li>
             <li>"The Realtime Web"</li>
           </ul>
         </section>
@@ -130,7 +130,6 @@
           <ul class="fragment">
             <li>"Push" as well as "Pull"</li>
             <li>Event driven</li>
-            <li>Publish/Subscribe</li>
             <li>Reactive</li>
           </ul>
         </section>
@@ -140,20 +139,21 @@
         </section>
 
         <section>
-          <h2>Who has heard of Websockets?</h2>
+          <h2>Who has heard of WebSockets?</h2>
           <h3 class='ws-counter text-green'>Yes - <span id='ws-heardof-yes'>0</span></h3>
           <h3 class='ws-counter text-red'>No - <span id='ws-heardof-no'>0</span></h3>
         </section>
 
         <section>
-          <h2>What are Websockets?</h2>
+          <h2>What are WebSockets?</h2>
           <ul>
+            <li>Part of the HTML5 effort, and has a standalone specification</li>
+            <li>Accessible via Javascript</li>
             <li>Persistent tcp connection between client and server</li>
             <li>Full Duplex (two way) communication</li>
-            <li>Stateful - bad for horizontal scaling</li>
+            <li>Stateful</li>
             <li>Very lean, each request framed by 2 bytes</li>
-            <li>Originally part of the HTML5 effort, but now has a standalone specification</li>
-            <li>Accessible via Javascript</li>
+            <li>There are no pre-determined request/response patterns</li>
           </ul>
         </section>
 
@@ -168,17 +168,18 @@
           </ul>
         </section>
 
-        <section>
+        <!--<section>
           <img src="/images/websocket-architecture.jpg" />
-        </section>
+        </section>-->
 
         <section>
-          <h2>What does this actually mean?</h2>
+          <h2>Why should I use WebSockets?</h2>
           <ul>
             <li>No more polling!</li>
             <li>Drastically reduces unnecessary network traffic</li>
             <li>As well as reducing DB/Server hits</li>
-            <li>Scales really well</li>
+            <li>Very lightweight, scales really well</li>
+            <li>Provides a more "native like" experience</li>
           </ul>
         </section>
         
@@ -189,28 +190,30 @@
             <tr>
               <th>Users</th>
               <th>HTTP polling</th>
-              <th>Websockets</th>
+              <th>WebSockets</th>
             </tr>
             <tr class="fragment">
               <td>1</td>
-              <td>60 (served 55 useless requests)</td>
+              <td>60 (served 55 useless requests - or 27k)</td>
               <td>5</td>
             </tr>
-            <tr class="fragment">
-              <td>10</td>
-              <td>600 (550)</td>
-              <td>50</td>
-            </tr>
-            <tr class="fragment">
-              <td>100</td>
-              <td>6000 (5500)</td>
-              <td>500</td>
-            </tr>
-            <tr class="fragment">
-              <td>1000</td>
-              <td>60000 (55000)</td>
-              <td>5000</td>
-            </tr>
+            <tbody class="fragment">
+              <tr>
+                <td>10</td>
+                <td>600 (550, 270k)</td>
+                <td>50</td>
+              </tr>
+              <tr>
+                <td>100</td>
+                <td>6000 (5500, 2.7mb)</td>
+                <td>500</td>
+              </tr>
+              <tr>
+                <td>1000</td>
+                <td>60000 (55000, 27mb)</td>
+                <td>5000</td>
+              </tr>
+            </tbody>
           </table>
 
         </section>
@@ -238,7 +241,13 @@
           <ul>
             <li>Node.js is great for event driven apps</li>
             <li>Socket.IO is a great wrapper around WebSockets (http://socket.io)</li>
-            <li>Several PaaS options
+            <li>Several hosted services
+              <ul>
+                <li>pusher.com</li>
+                <li>pubnub.com</li>
+                <li>insto.co.uk</li>
+              </ul>
+            </li>
           </ul>
         </section>
 
@@ -258,7 +267,7 @@
         progress: false,
         history: false,
         center: true,
-        keyboard: false,
+        keyboard: true,
         transition: 'slide', // none/fade/slide/convex/concave/zoom
 
         // Optional reveal.js plugins
@@ -274,7 +283,15 @@
 
       var updateConnectedUsers = function() {
         var element = document.getElementById('ws-connected');
-        element.innerText = Object.keys(connectedUsers).length;
+        var num = Object.keys(connectedUsers).length;
+        if (num) {
+          element.className = "ws-connected";
+          element.innerText = num;
+        }
+
+        else {
+          element.className = "ws-connected hidden";
+        }
       }
 
       var updateHeardof = function(data) {

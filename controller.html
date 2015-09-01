@@ -56,11 +56,8 @@
         <div class="navbar-header text-center">
 
           <input type='button' class="btn btn-danger mt10" onclick="prev();" value="PREVIOUS" />
-          <input type='button' class="btn btn-info mt10" onclick="colour();" value="COLOUR" />
-          <input type='button' class="btn btn-default mt10" onclick="black();" value="RESET" />
-          <input type='button' class="btn btn-warning mt10" onclick="heardof();" value="HEARD OF" />
+          
           <input type='button' class="btn btn-success mt10" onclick="next();" value="NEXT" />
-          <input type='button' class="btn btn-primary mt10" onclick="redirect();" value="INSTO" />
         </div>
 
       </div>
@@ -70,7 +67,7 @@
         
       <div class="row">
       
-        <div class="col-sm-12 section">
+        <!--<div class="col-sm-12 section">
           
           <h3>Small History Lesson</h3>
           <p>This broadly represents the progression of web dev over the last 2 or 3 decades.</p>
@@ -78,11 +75,18 @@
           <p>Driven by jQuery, AJAX and Web 2.0</p>
           <p>Has helped with the progression towards online systems, and SaaS, as you can easier replicate native apps</p>
 
-        </div>
+        </div>-->
 
         <div class="col-sm-12 mt10 section">
           
           <h3>What is realtime web</h3>
+          
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
+          <h3>What does this mean</h3>
+          <p>Your app can have data pushed to it<p>
           <p>Event driven is key</p>
           <p>Facebook notifications, BBC live sport/news, Phone push notifications</p>
           <p>When something happens over there, you can make something happen over here</p>
@@ -92,8 +96,25 @@
 
         <div class="col-sm-12 mt10 section">
           
+          <h3>Link to audience app</h3>
+          <p>Presentation is a Realtime web app, as is the web page on your phones and the one on my phone</p>
+          <p>This app is just HTML, Javascript and WebSockets</p>
+          <p>This number shows people connected. This is actual connections, not read from a database or any kind of persistent store.</p>
+          <p>Please enter your name</p>
+
+          <input type='button' class="btn btn-primary mt10" onclick="showname();" value="NAME" /><br />
+          <input type='button' class="btn btn-info mt10" onclick="colour();" value="COLOUR" />
+          <input type='button' class="btn btn-default mt10" onclick="black();" value="RESET" />
+          <br /><br />
+
+        </div>
+
+        <div class="col-sm-12 mt10 section">
+          
           <h3>Who heard of Websockets</h3>
           <p>Several other options, but going to focus on Websockets today</p>
+          <input type='button' class="btn btn-warning" onclick="heardof();" value="HEARD OF" />
+          <br /><br />
 
         </div>
 
@@ -103,7 +124,6 @@
           <p>Stateful - must know about all other connections to the app, and be able to access them. This causes added complication when trying to scale</p>
           <p>Ideal for sending small updates with very little overhead</p>
           <p>There is no pre-determined request/response pattern - left up to you</p>
-          <p>Security concerns - CHANGE SCREEN COLOUR</p>
 
         </div>
 
@@ -118,16 +138,18 @@
 
         <div class="col-sm-12 mt10 section">
           
-          <!---<h3>Infrastructure graphic</h3>
-          <p>Clients connect to websocket server via Internet</p>
-          <p>Other applications (and also these clients) send data to each other via the websockets server</p>
-          <p>Generally, this is a separate server to your traditional webserver - can't use Apache for this</p>-->
+          <h3>Chat example</h3>
+          <p>Chat is the "Hello World" of realtime web apps</p>
+          <p>All that is happening is that some JSON is being sent to the browser, and there is some Javascript waiting to interpret it and render as necessary</p>
+          <input type='button' class="btn btn-warning" onclick="showchat();" value="SHOW" />
+          <input type='button' class="btn btn-success" onclick="hidechat();" value="HIDE" />
+          <br /><br />
 
         </div>
 
         <div class="col-sm-12 mt10 section">
           
-          <h3>What does this actually mean?</h3>
+          <h3>Why should I use WebSockets?</h3>
           <p></p>
 
         </div>
@@ -154,6 +176,9 @@
           <h3>Getting started</h3>
           <p></p>
 
+          <input type='button' class="btn btn-primary mt10" onclick="redirect();" value="INSTO" />
+          <br><br>
+
         </div>
 
       </div>
@@ -178,6 +203,18 @@
       var heardof = function() {
 
         insto.send({ userType: "audience"}, { action: "showheardof" }, false);
+
+      }
+
+      var showchat = function() {
+
+        insto.send({ userType: "audience"}, { action: "showchat" }, false);
+
+      }
+
+      var hidechat = function() {
+
+        insto.send({ userType: "audience"}, { action: "hidechat" }, false);
 
       }
 
@@ -229,6 +266,12 @@
       var redirect = function() {
 
         insto.send({ userType: "audience"}, { action: "redirect" }, false);
+
+      }
+
+      var showname = function() {
+
+        insto.send({ userType: "audience"}, { action: "showname" }, false);
 
       }
 

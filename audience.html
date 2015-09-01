@@ -19,6 +19,8 @@
     <script type="text/javascript" src="https://api.insto.co.uk:3000/lib/client.js"></script>
     <script type="text/javascript">
 
+      var yourName = null;
+
       // user data
       var userData = {
         userType: "audience"
@@ -48,6 +50,22 @@
               show('#heardof');
               break;
 
+            case "showchat":
+              show('#chat');
+              break;
+
+            case "hidechat":
+              hide('#chat');
+              break;
+
+            case "showname":
+              show('#name');
+              break;
+
+            case "hidename":
+              hide('#name');
+              break;
+
             case "redirect":
               window.location.href = "http://www.insto.co.uk";
               break;
@@ -75,8 +93,20 @@
 
       <h2>Real-time Web Apps</h2>
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
+      <div class="jumbotron mt10">
         
+        <div id='name'>
+          <h2>Hello! Please enter your name</h2>
+          <input type="text" class="form-control" id='yourName' /><br />
+          <input type='button' class="btn btn-lg btn-success" onclick="saveName();" value="Save" />
+        </div>
+
+        <div id='chat'>
+          <h2>Please enter a message</h2>
+          <input type="text" class="form-control" id='chatMsg' /><br />
+          <input type='button' class="btn btn-lg btn-success" onclick="sendChat();" value="Send" />
+        </div>
+
         <div id='heardof'>
           <h2>Have you heard of WebSockets?</h2>
           <input type='button' class="btn btn-lg btn-success" onclick="yes();" value="YES" />
@@ -93,6 +123,8 @@
       $(document).ready(function() {
 
         hide('#heardof');
+        hide('#chat');
+        hide('#name');
 
       });
 
@@ -145,6 +177,33 @@
           return hslToRgb(h, 0.5, 0.60);
         };
       })();
+
+      var saveName = function() {
+
+        var x = $('#yourName').val();
+
+        if (x == "") {
+          return alert("Please enter a name");
+        }
+
+        yourName = x;
+        hide('#name');
+
+      }
+
+      var sendChat = function() {
+
+        var x = $('#chatMsg').val();
+
+        if (x == "") {
+          return alert("Please enter a message!");
+        }
+
+        insto.send({ userType: "projector"}, { action: "chat", name: yourName, msg: x }, false);
+
+        $('#chatMsg').val("");
+
+      }
 
     </script>
 

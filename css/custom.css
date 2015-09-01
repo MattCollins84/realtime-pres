@@ -16,6 +16,25 @@
   width: 100%!important;
 }
 
+/**** CHAT ****/
+.chat-left {
+  width: 40%!important;
+  float: left;
+  text-align: left;
+  padding-left: 20px!important;
+  padding-top: 20px!important;
+  margin-right: 10px!important;
+}
+
+.chat-right {
+  height: 600px;
+  float: left;
+  text-align: left;
+  border-left: 1px solid white!important;
+  width: 50%!important;
+  padding-left: 20px!important;
+}
+
 /***** MARGINS *****/
 .mt10 {
   margin-top: 10px!important;

@@ -68,6 +68,10 @@
               updateHeardof(data);
               break;
 
+            case "chat":
+              addChat(data);
+              break;
+              
             default:
               console.log(data);
               break;
@@ -113,24 +117,27 @@
           <h2>Real-time Web Apps</h2>
         </section>
 
-        <section>
-          <h2>A Small History Lesson</h2>
+        <!--<section>
+          <h2>A Brief History Lesson</h2>
           <ul>
             <li>Simple, static, HTML only websites</li>
             <li>Database driven websites (CMS)</li>
             <li>Focus on dynamic, interactive and engaging UI</li>
             <li>"The Realtime Web"</li>
           </ul>
-        </section>
+        </section>-->
 
         <section>
           <h2>What is "The Real-time Web"?</h2>
           <p><em>The real-time web is a network web using technologies and practices that enable users to receive information as soon as it is published by its authors, rather than requiring that they or their software check a source periodically for updates.</em></p>
-          <h3 class="fragment">What does this mean?</h3>
-          <ul class="fragment">
-            <li>"Push" as well as "Pull"</li>
-            <li>Event driven</li>
-            <li>Reactive</li>
+        </section>
+
+        <section>
+          <h2>What does this mean?</h2>
+          <ul class="list-full-width">
+            <li>Your app can have data pushed to it, as well as requesting from server</li>
+            <li>Event driven - Facebook Notifications, BBC live news, Games</li>
+            <li>Reactive user experience</li>
           </ul>
         </section>
 
@@ -147,7 +154,7 @@
         <section>
           <h2>What are WebSockets?</h2>
           <ul>
-            <li>Part of the HTML5 effort, and has a standalone specification</li>
+            <li>Part of the HTML5 effort</li>
             <li>Accessible via Javascript</li>
             <li>Persistent tcp connection between client and server</li>
             <li>Full Duplex (two way) communication</li>
@@ -161,16 +168,27 @@
           <h2>Compared to HTTP</h2>
           <ul>
             <li>Temporary connection, until request is dealt with</li>
-            <li>Uni-directional, pre-determined pattern</li>
+            <li>Uni-directional (one way) communication</li>
+            <li>Pre-determined request/response pattern</li>
             <li>Client makes a request, server sends a response</li>
-            <li>Stateless - good for horizontal scaling</li>
+            <li>Stateless</li>
             <li>Quite verbose, each request framed by 500+ bytes</li>
           </ul>
         </section>
 
-        <!--<section>
-          <img src="/images/websocket-architecture.jpg" />
-        </section>-->
+        <section>
+          <h2>Chatroom example</h2>
+          <div class="chat-left">
+            {<br>
+            &nbsp;&nbsp;"action": "chat-message",<br>
+            &nbsp;&nbsp;"name": "Matt",<br>
+            &nbsp;&nbsp;"msg": "Hello World!"<br>
+            }
+          </div>
+          <div class="chat-right" id='chat-right'>
+            <p>Matt: Hello World!</p>
+          </div>
+        </section>
 
         <section>
           <h2>Why should I use WebSockets?</h2>
@@ -179,7 +197,7 @@
             <li>Drastically reduces unnecessary network traffic</li>
             <li>As well as reducing DB/Server hits</li>
             <li>Very lightweight, scales really well</li>
-            <li>Provides a more "native like" experience</li>
+            <li>Provides a more "native" experience</li>
           </ul>
         </section>
         
@@ -218,6 +236,7 @@
 
         </section>
 
+        <!--
         <section>
           <h2>The difference between this...</h2>
           <img src="/images/are-we-there-yet.png" />
@@ -227,6 +246,7 @@
           <h2>...and this!</h2>
           <img src="/images/wake-up.png" />
         </section>
+        -->
 
         <section>
           <h2>Other real-time technologies are available...</h2>
@@ -239,7 +259,7 @@
         <section>
           <h2>Getting started</h2>
           <ul>
-            <li>Node.js is great for event driven apps</li>
+            <li>Node.js is great for event driven apps (nodejs.org)</li>
             <li>Socket.IO is a great wrapper around WebSockets (http://socket.io)</li>
             <li>Several hosted services
               <ul>
@@ -249,6 +269,10 @@
               </ul>
             </li>
           </ul>
+        </section>
+
+        <section>
+          <h2>Questions?</h2>
         </section>
 
       </div>
@@ -303,6 +327,13 @@
 
         var noelement = document.getElementById('ws-heardof-no');
         noelement.innerText = Object.keys(heardOf.no).length;
+
+      }
+
+      var addChat = function(data) {
+
+        var c = document.getElementById("chat-right");
+        c.innerHTML = "<p>" + data.name + ": " + data.msg + "</p>" + c.innerHTML;
 
       }
 
